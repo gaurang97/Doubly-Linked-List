@@ -1,0 +1,115 @@
+class Node{
+    int data;
+    Node next;
+    Node prev;
+    public Node(int data)
+    {
+        this.data = data;
+    }
+}
+
+class DLinkedList{
+    Node head;
+    
+    public void add(int data)
+    {
+        Node node = new Node(data);
+        node.next=null;
+        
+        if(head==null)
+        {
+           insertBegin(data); 
+        }
+        else
+        {
+            Node n = head;
+            while(n.next!=null)
+            {
+                n=n.next;
+            }
+            node.next = null;
+            node.prev = n;
+            n.next = node;
+            
+        }
+    }
+    
+    public void insertBegin(int data)
+    {
+        Node node = new Node(data);
+       
+        
+       node.next = head;
+       node.prev = null;
+       if(head!=null)
+       {
+           head.prev = node;
+       }
+       head = node;
+    }
+    
+    public void traverse()
+    {
+        Node last = null;
+        Node n = head;
+        System.out.println("Printing Normal");
+        while(n.next!=null)
+        {
+            System.out.print(n.data + " ");
+            last = n;
+            n = n.next;
+            
+        }
+        last = n;
+       System.out.print(n.data + " ");
+   
+        
+        System.out.println("\nPrinting Reverse");
+          while(last.prev!=null)
+        {
+            System.out.print(last.data + " ");
+            
+            last = last.prev;
+            
+        }
+        System.out.print(last.data + " ");
+        
+    }
+    
+    public void remove(int index)
+    {
+        if(index==0)
+        {
+            head = head.next;
+            head.prev = null;
+        }
+        else{
+        Node n = head;
+        for(int i=0;i<index-1;i++)
+        {
+            n=n.next;
+        }
+       
+        n.next.next.prev = n;
+         n.next = n.next.next;
+        }
+        
+    }
+}
+
+public class Main{
+    public static void main(String[] args)
+    {
+        DLinkedList l = new DLinkedList();
+        l.add(5);
+        l.add(10);
+        l.add(15);
+        l.add(25);
+        l.add(35);
+        l.add(45);
+        l.remove(0);
+        l.traverse();
+    }
+}
+
+
